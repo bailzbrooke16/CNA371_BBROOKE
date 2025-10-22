@@ -1,0 +1,22 @@
+# Kubernetes deployment for my admission app
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admission-app
+  labels:
+    app: admission-checker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admission-checker
+  template:
+    metadata:
+      labels:
+        app: admission-checker
+    spec:
+      containers:
+      - name: admission-container
+        image: admission-app:latest
+        stdin: true
+        tty: true

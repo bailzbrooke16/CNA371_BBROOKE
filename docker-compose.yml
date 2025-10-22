@@ -1,0 +1,7 @@
+# Docker compose file for my admission app
+services:
+  admission-app:
+    build: .
+    stdin_open: true
+    tty: true
+    container_name: my-admission-app
