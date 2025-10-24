@@ -33,7 +33,15 @@ docker run -it baileycoding/cna371_bbrooke
 docker-compose up --build
 ```
 
-**With Kubernetes:**
+**With Kubernetes (few options since it's a console app):**
+
+Option 1 - Run as a Job:
+```
+kubectl apply -f k8s/job.yaml
+kubectl logs -f job/cna371-admission-job
+```
+
+Option 3 - All files (includes deployment):
 ```
 kubectl apply -f k8s/
 ```

@@ -1,26 +1,23 @@
-# Kubernetes deployment for my CNA371 admission checker - Bailey
-apiVersion: apps/v1
-kind: Deployment
+# Kubernetes Job for running the console app - better for interactive apps
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: cna371-admission-app
+  name: cna371-admission-job
   labels:
     app: cna371-bbrooke
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: cna371-bbrooke
   template:
     metadata:
       labels:
         app: cna371-bbrooke
     spec:
+      restartPolicy: Never
       containers:
       - name: admission-checker
         image: baileycoding/cna371_bbrooke:latest
         stdin: true
         tty: true
-        # Console app needs interactive terminal
+        # For interactive console app
         command: ["dotnet", "AdmissionApp.dll"]
         resources:
           requests:
@@ -29,3 +26,4 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
+  backoffLimit: 3

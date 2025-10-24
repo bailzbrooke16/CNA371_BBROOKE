@@ -1,7 +1,20 @@
-# Docker compose file for my admission app
+# Docker compose for my CNA371 project - Bailey
+version: '3.8'
+
 services:
-  admission-app:
-    build: .
-    stdin_open: true
-    tty: true
-    container_name: my-admission-app
+  cna371-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: baileycoding/cna371_bbrooke:latest
+    container_name: cna371_bbrooke_app
+    stdin_open: true  # Keep STDIN open for interactive input
+    tty: true         # Allocate a pseudo-TTY for console interaction
+    # Auto-remove container when it stops (good for console apps)
+    restart: "no"
+    # Resource limits (optional but good practice)
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.5'
