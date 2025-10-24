@@ -1,28 +1,31 @@
 # Belgium Campus Admission Checker
-
-This is my CNA371 project - a simple console app that checks if students qualify for different IT programs at Belgium Campus.
+ A basic console app that tells you if you can get into Belgium Campus IT programs. 
 
 ## What it does
 
-The app checks if students meet Belgium Campus admission requirements based on the official criteria:
+It asks you some questions about your matric (NSC) and marks, then tells you what you can study. The requirements are:
 
-**Minimum requirement:** NSC certified by Umalusi or SAQA equivalent foreign qualification
+**You NEED matric first** - has to be certified by Umalusi (or SAQA if you're from overseas)
 
-**Programs available:**
-- **Diploma in Information Technology** - NSC endorsed for Diploma
-- **Bachelor of Information Technology (BIT)** - NSC endorsed for Degree + 50% English + 50% Mathematics  
-- **Bachelor of Computing (BComp)** - NSC endorsed for Degree + 50% English + 70% Mathematics
+**Then for each program:**
+- **Diploma in IT** - just need NSC endorsed for diploma (easiest one)
+- **Bachelor of IT (BIT)** - NSC for degree + 50% English + 50% Maths  
+- **Bachelor of Computing (BComp)** - NSC for degree + 50% English + 70% Maths 
 
-**Special note:** Mathematics Bridging Course available for students who scored less than required in pure mathematics.
 
 ## How to run it
 
 I've set it up with Docker so it works everywhere:
 
+**If you havent cloned the repo**
+
+```
+docker run -it baileycoding/cna371_bbrooke
+```
 **With Docker:**
 ```
-docker build -t admission-app .
-docker run -it admission-app
+docker build -t baileycoding/cna371_bbrooke .
+docker run -it baileycoding/cna371_bbrooke
 ```
 
 **With Docker Compose:**
@@ -35,9 +38,3 @@ docker-compose up --build
 kubectl apply -f k8s/
 ```
 
-## Files included
-
-- `Program.cs` - the main C# code
-- `Dockerfile` - to build the container
-- `docker-compose.yml` - for easy deployment
-- `k8s/` folder - Kubernetes setup

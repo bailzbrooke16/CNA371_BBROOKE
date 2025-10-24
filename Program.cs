@@ -4,128 +4,138 @@ class Program
 {
     static void Main()
     {
-        // Welcome message
-        Console.WriteLine("Belgium Campus ITversity - Student Qualification Checker");
-        Console.WriteLine("========================================================");
+        // My CNA371 assignment - Bailey Brooke
+        // This checks if you can get into Belgium Campus IT programs
+        
+        Console.WriteLine("=== Belgium Campus Admission Checker ===");
+        Console.WriteLine("Hey there! Let's see if you qualify for our IT programs");
         Console.WriteLine();
         
-        // Get student details
-        Console.Write("Enter your name: ");
-        string studentName = Console.ReadLine();
+        Console.Write("What's your name? ");
+        string name = Console.ReadLine();
         
-        // Check basic qualification
-        Console.Write("Do you have a National Senior Certificate (NSC) certified by Umalusi or equivalent SAQA converted qualification? (y/n): ");
-        string nscInput = Console.ReadLine();
-        bool hasNSC = (nscInput == "y" || nscInput == "Y");
+        // First check - do they have NSC?
+        Console.Write("Do you have NSC (matric) certified by Umalusi or SAQA equivalent? (y/n): ");
+        string answer1 = Console.ReadLine();
         
-        if (!hasNSC)
+        if(answer1.ToLower() != "y")  // I learned ToLower() is better than checking both y and Y
         {
             Console.WriteLine();
-            Console.WriteLine("Sorry, you need a National Senior Certificate (NSC) certified by Umalusi");
-            Console.WriteLine("or an equivalent foreign qualification converted by SAQA to qualify for any program.");
+            Console.WriteLine("Ah sorry " + name + ", you need NSC (matric) to get in :(");
+            Console.WriteLine("It has to be certified by Umalusi or if you're from overseas,");
+            Console.WriteLine("you need SAQA to convert your qualification first.");
             Console.WriteLine();
-            Console.WriteLine("Press Enter to close...");
+            Console.WriteLine("Thanks for trying though! Press Enter to exit...");
             Console.ReadLine();
             return;
         }
         
-        Console.Write("Is your NSC endorsed for Diploma studies? (y/n): ");
-        string diplomaEndorsedInput = Console.ReadLine();
-        bool isDiplomaEndorsed = (diplomaEndorsedInput == "y" || diplomaEndorsedInput == "Y");
+        // OK cool, they have NSC. Now let's get more details
+        Console.WriteLine("Great! Now I need to check what your NSC is endorsed for...");
+        Console.Write("Is it endorsed for Diploma? (y/n): ");
+        string diplomaAnswer = Console.ReadLine();
         
-        Console.Write("Is your NSC endorsed for Degree studies? (y/n): ");
-        string degreeEndorsedInput = Console.ReadLine();
-        bool isDegreeEndorsed = (degreeEndorsedInput == "y" || degreeEndorsedInput == "Y");
+        Console.Write("Is it endorsed for Degree? (y/n): ");  
+        string degreeAnswer = Console.ReadLine();
         
-        // Get English percentage
-        Console.Write("What percentage did you achieve for English? (Enter 0 if not taken): ");
-        int englishPercentage = Convert.ToInt32(Console.ReadLine());
+        Console.Write("What % did you get for English? (put 0 if you didn't take it): ");
+        string englishInput = Console.ReadLine();
+        int englishMark = int.Parse(englishInput);  // Should probably use TryParse but this works
         
-        // Get Mathematics percentage
-        Console.Write("What percentage did you achieve for pure Mathematics? (Enter 0 if not taken): ");
-        int mathsPercentage = Convert.ToInt32(Console.ReadLine());
+        Console.Write("What % for pure Maths? (put 0 if you didn't take it): ");
+        string mathsInput = Console.ReadLine(); 
+        int mathsMark = int.Parse(mathsInput);
         
+        // Time to check what they qualify for!
         Console.WriteLine();
-        Console.WriteLine("Results for " + studentName + ":");
-        Console.WriteLine("----------------------------");
+        Console.WriteLine("OK " + name + ", let me check what you can study...");
+        Console.WriteLine("============================================");
         
-        // Check qualifications for each program
-        bool qualifiesForSomething = false;
-        bool needsBridgingCourse = false;
+        bool canStudySomething = false;
         
-        // Check for Diploma in Information Technology
-        if (isDiplomaEndorsed)
+        // Diploma check - just needs diploma endorsement
+        if (diplomaAnswer.ToLower() == "y")
         {
-            Console.WriteLine("ACCEPTED: Diploma in Information Technology");
-            Console.WriteLine("  ✓ NSC endorsed for Diploma");
-            qualifiesForSomething = true;
+            Console.WriteLine("✓ YES - Diploma in Information Technology");
+            Console.WriteLine("  You have NSC for diploma, so you're good to go!");
+            canStudySomething = true;
+        }
+        else
+        {
+            Console.WriteLine("✗ NO - Diploma in Information Technology");  
+            Console.WriteLine("  Your NSC needs to be endorsed for diploma");
         }
         
-        // Check for Degree Programs (Bachelor of IT and Bachelor of Computing)
-        if (isDegreeEndorsed)
+        Console.WriteLine();
+        
+        // Now check the degree programs - these are trickier
+        if (degreeAnswer.ToLower() == "y")
         {
-            bool hasRequiredEnglish = englishPercentage >= 50;
-            bool hasRequiredMaths = mathsPercentage >= 50;
-            
-            if (hasRequiredEnglish && hasRequiredMaths)
+            // They have degree endorsement, now check English and Maths
+            if (englishMark >= 50 && mathsMark >= 50)
             {
-                Console.WriteLine("ACCEPTED: Bachelor of Information Technology (BIT)");
-                Console.WriteLine("  ✓ NSC endorsed for Degree");
-                Console.WriteLine("  ✓ English: " + englishPercentage + "% (50% required)");
-                Console.WriteLine("  ✓ Mathematics: " + mathsPercentage + "% (50% required)");
-                qualifiesForSomething = true;
+                Console.WriteLine("✓ YES - Bachelor of Information Technology (BIT)");
+                Console.WriteLine("  NSC for degree ✓, English " + englishMark + "% ✓, Maths " + mathsMark + "% ✓");
+                canStudySomething = true;
                 
-                // Check for Bachelor of Computing (higher requirement)
-                if (mathsPercentage >= 70)
+                // Check if they can do BComp too (needs 70% maths)
+                if (mathsMark >= 70)
                 {
-                    Console.WriteLine("ACCEPTED: Bachelor of Computing (BComp)");
-                    Console.WriteLine("  ✓ Mathematics: " + mathsPercentage + "% (70% required for BComp)");
+                    Console.WriteLine("✓ YES - Bachelor of Computing (BComp) too!");
+                    Console.WriteLine("  Your maths is " + mathsMark + "% which is above the 70% needed");
                 }
                 else
                 {
-                    Console.WriteLine("Note: For Bachelor of Computing, you need 70% in Mathematics (you have " + mathsPercentage + "%)");
+                    Console.WriteLine("✗ NO - Bachelor of Computing (BComp)");  
+                    Console.WriteLine("  You need 70% for maths but got " + mathsMark + "%");
                 }
             }
             else
             {
-                Console.WriteLine("For Degree Programs, you need:");
-                if (!hasRequiredEnglish)
+                // Missing requirements
+                Console.WriteLine("✗ NO - Bachelor degrees");
+                if (englishMark < 50) 
                 {
-                    Console.WriteLine("  ✗ English: " + englishPercentage + "% (50% required)");
+                    Console.WriteLine("  English too low: " + englishMark + "% (need 50%)");
                 }
-                if (!hasRequiredMaths)
+                if (mathsMark < 50)
                 {
-                    Console.WriteLine("  ✗ Mathematics: " + mathsPercentage + "% (50% required)");
-                    if (mathsPercentage < 50 && mathsPercentage > 0)
+                    Console.WriteLine("  Maths too low: " + mathsMark + "% (need 50%)");
+                    if (mathsMark > 0)  // They actually took maths
                     {
-                        Console.WriteLine("  💡 Option: You can attend our Mathematics Bridging Course");
-                        Console.WriteLine("     - Achieve 50% for BIT entry or 70% for BComp entry");
-                        needsBridgingCourse = true;
+                        Console.WriteLine("  BUT WAIT! You can do our Maths Bridging Course");
+                        Console.WriteLine("  Get 50% = qualify for BIT, get 70% = qualify for BComp");
                     }
                 }
             }
         }
-        
-        if (!qualifiesForSomething && !needsBridgingCourse)
+        else
         {
-            Console.WriteLine("Current Requirements Summary:");
-            Console.WriteLine("Minimum requirement: NSC certified by Umalusi or SAQA equivalent");
-            Console.WriteLine();
-            Console.WriteLine("Diploma in Information Technology:");
-            Console.WriteLine("  • NSC endorsed for Diploma");
-            Console.WriteLine();
-            Console.WriteLine("Degree Programmes:");
-            Console.WriteLine("  • NSC endorsed for Degree");
-            Console.WriteLine("  • 50% or more for English");
-            Console.WriteLine("  • 50% or more for pure Mathematics (BIT)");
-            Console.WriteLine("  • 70% or more for pure Mathematics (BComp)");
-            Console.WriteLine();
-            Console.WriteLine("Note: Mathematics Bridging Course available if you scored less than required");
+            Console.WriteLine("✗ NO - Bachelor degrees");
+            Console.WriteLine("  Your NSC needs to be endorsed for degree study");
         }
         
         Console.WriteLine();
-        Console.WriteLine("Thank you for using our system!");
-        Console.Write("Press Enter to close...");
-        Console.ReadLine();
+        if (!canStudySomething)
+        {
+            Console.WriteLine("Don't worry " + name + "! Here's what you need:");
+            Console.WriteLine();
+            Console.WriteLine("For ANY program: NSC certified by Umalusi (or SAQA if foreign)");
+            Console.WriteLine("For Diploma IT: NSC endorsed for diploma");  
+            Console.WriteLine("For Bachelor degrees: NSC endorsed for degree + 50% English + 50% Maths");
+            Console.WriteLine("For BComp specifically: Same as above but 70% Maths");
+            Console.WriteLine();
+            Console.WriteLine("Remember: If your maths is under 50%, try our bridging course!");
+        }
+        else
+        {
+            Console.WriteLine("Nice one " + name + "! You've got options :)");
+        }
+        
+        Console.WriteLine();
+        Console.WriteLine("That's it! Hope this helped.");
+        Console.WriteLine("(This was made for my CNA371 assignment - Bailey)");
+        Console.Write("Press any key to exit...");
+        Console.ReadKey();
     }
 }
