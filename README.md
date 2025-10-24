@@ -4,10 +4,16 @@ This is my CNA371 project - a simple console app that checks if students qualify
 
 ## What it does
 
-The app asks students for their info and tells them which programs they can apply for:
-- Diploma in IT (need 40%+ with Maths and English)
-- Bachelor of IT (need 60%+ with Maths, English and Science)  
-- Bachelor of Computing (need 70%+ with all subjects)
+The app checks if students meet Belgium Campus admission requirements based on the official criteria:
+
+**Minimum requirement:** NSC certified by Umalusi or SAQA equivalent foreign qualification
+
+**Programs available:**
+- **Diploma in Information Technology** - NSC endorsed for Diploma
+- **Bachelor of Information Technology (BIT)** - NSC endorsed for Degree + 50% English + 50% Mathematics  
+- **Bachelor of Computing (BComp)** - NSC endorsed for Degree + 50% English + 70% Mathematics
+
+**Special note:** Mathematics Bridging Course available for students who scored less than required in pure mathematics.
 
 ## How to run it
 
