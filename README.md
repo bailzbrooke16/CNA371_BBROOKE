@@ -1,6 +1,10 @@
 # Belgium Campus Admission Checker
  A basic console app that tells you if you can get into Belgium Campus IT programs. 
 
+## Git Repository available at 
+
+https://github.com/bailzbrooke16/CNA371_BBROOKE
+
 ## What it does
 
 It asks you some questions about your matric (NSC) and marks, then tells you what you can study. The requirements are:
